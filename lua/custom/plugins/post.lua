@@ -36,6 +36,7 @@ vim.cmd 'command! -nargs=1 Tab lua Set_tab(<q-args>)'
 function Add_modeline(tabwidth)
   local full = (vim.o.commentstring):format(('Vim: set expandtab tabstop=%d shiftwidth=%d:'):format(tabwidth, tabwidth))
   vim.api.nvim_buf_set_lines(0, -1, -1, false, { full })
+  Set_tab(tabwidth)
 end
 
 vim.cmd 'command! -nargs=1 AML lua Add_modeline(<q-args>)'

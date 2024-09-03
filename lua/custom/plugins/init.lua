@@ -43,7 +43,9 @@ return {
     'fedepujol/move.nvim',
     -- lazy = false,
     config = function()
-      require('move').setup()
+      require('move').setup {
+        char = { enable = true },
+      }
       local opts = { noremap = true, silent = true }
       -- Normal-mode commands
       vim.keymap.set('n', '<A-j>', ':MoveLine(1)<CR>', opts)
@@ -101,16 +103,16 @@ return {
     keys = {
       { '<Leader>gc', '<cmd>Neogen<cr>', desc = 'Gen annot' },
     },
-
-    -- Uncomment next line if you want to follow only stable versions
-    -- version = "*"
   },
   {
     'Bekaboo/dropbar.nvim',
-    -- enabled = false,
     dependencies = {
       'nvim-telescope/telescope-fzf-native.nvim',
     },
-    opts = { icons = { kinds = { use_devicons = false } } },
+    lazy = false,
+    opts = { icons = { kinds = { use_devicons = true } } },
+    keys = {
+      { '<leader>dp', '<cmd>lua require("dropbar.api").pick()<cr>', desc = '[D]ropbar [p]ick' },
+    },
   },
 }
