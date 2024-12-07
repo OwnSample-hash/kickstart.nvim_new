@@ -110,9 +110,25 @@ return {
       'nvim-telescope/telescope-fzf-native.nvim',
     },
     lazy = false,
-    opts = { icons = { kinds = { use_devicons = true } } },
+    -- opts = { icons = { kinds = { use_devicons = true } } },
     keys = {
       { '<leader>dp', '<cmd>lua require("dropbar.api").pick()<cr>', desc = '[D]ropbar [p]ick' },
     },
   },
+  {
+    'mfussenegger/nvim-dap',
+  },
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
+    config = function()
+      require('dapui').setup()
+    end,
+    keys = {
+      { '<leader>dt', "<cmd>lua require('dapui').toggle()<cr>", desc = '[D]apui [t]oggle' },
+      { '<leader>do', "<cmd>lua require('dapui').open()<cr>", desc = '[D]apui [o]pne' },
+      { '<leader>dc', "<cmd>lua require('dapui').close()<cr>", desc = '[D]apui [c]lose' },
+    },
+  },
+  { 'github/copilot.vim' },
 }
