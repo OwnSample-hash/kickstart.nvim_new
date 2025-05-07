@@ -5,7 +5,7 @@ return {
     dependencies = 'nvim-tree/nvim-web-devicons',
     opts = {},
     keys = {
-      { '<Tab>', '<cmd>bnext<cr>', desc = 'Next tab' },
+      { '<Tab>',   '<cmd>bnext<cr>',     desc = 'Next tab' },
       { '<S-Tab>', '<cmd>bprevious<cr>', desc = 'Prev tab' },
     },
   },
@@ -25,8 +25,8 @@ return {
       vim.fn['mkdp#util#install']()
     end,
     keys = {
-      { '<leader>mp', '<cmd>MarkdownPreview<cr>', desc = '[M]arkdown[P]review' },
-      { '<leader>ms', '<cmd>MarkdownPreviewStop<cr>', desc = '[M]arkdownPreview[S]top' },
+      { '<leader>mp', '<cmd>MarkdownPreview<cr>',       desc = '[M]arkdown[P]review' },
+      { '<leader>ms', '<cmd>MarkdownPreviewStop<cr>',   desc = '[M]arkdownPreview[S]top' },
       { '<leader>mt', '<cmd>MarkdownPreviewToggle<cr>', desc = '[M]arkdownPreview[T]oggle' },
     },
   },
@@ -126,9 +126,21 @@ return {
     end,
     keys = {
       { '<leader>dt', "<cmd>lua require('dapui').toggle()<cr>", desc = '[D]apui [t]oggle' },
-      { '<leader>do', "<cmd>lua require('dapui').open()<cr>", desc = '[D]apui [o]pne' },
-      { '<leader>dc', "<cmd>lua require('dapui').close()<cr>", desc = '[D]apui [c]lose' },
+      { '<leader>do', "<cmd>lua require('dapui').open()<cr>",   desc = '[D]apui [o]pne' },
+      { '<leader>dc', "<cmd>lua require('dapui').close()<cr>",  desc = '[D]apui [c]lose' },
     },
   },
   { 'github/copilot.vim' },
+  {
+    'RaafatTurki/hex.nvim',
+    lazy = false,
+    keys = {
+      { '<leader>hx', '<cmd>HexDump<cr>',     desc = 'Switches to hex view' },
+      { '<leader>ha', '<cmd>HexAssemble<cr>', desc = 'Go back to normal view' },
+      { '<leader>ht', '<cmd>HexToggle<cr>',   desc = 'Toggles hex view' },
+    },
+    config = function()
+      require('hex').setup()
+    end,
+  }
 }
