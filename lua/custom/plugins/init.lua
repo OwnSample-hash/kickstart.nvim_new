@@ -5,7 +5,7 @@ return {
     dependencies = 'nvim-tree/nvim-web-devicons',
     opts = {},
     keys = {
-      { '<Tab>',   '<cmd>bnext<cr>',     desc = 'Next tab' },
+      { '<Tab>', '<cmd>bnext<cr>', desc = 'Next tab' },
       { '<S-Tab>', '<cmd>bprevious<cr>', desc = 'Prev tab' },
     },
   },
@@ -25,8 +25,8 @@ return {
       vim.fn['mkdp#util#install']()
     end,
     keys = {
-      { '<leader>mp', '<cmd>MarkdownPreview<cr>',       desc = '[M]arkdown[P]review' },
-      { '<leader>ms', '<cmd>MarkdownPreviewStop<cr>',   desc = '[M]arkdownPreview[S]top' },
+      { '<leader>mp', '<cmd>MarkdownPreview<cr>', desc = '[M]arkdown[P]review' },
+      { '<leader>ms', '<cmd>MarkdownPreviewStop<cr>', desc = '[M]arkdownPreview[S]top' },
       { '<leader>mt', '<cmd>MarkdownPreviewToggle<cr>', desc = '[M]arkdownPreview[T]oggle' },
     },
   },
@@ -126,8 +126,8 @@ return {
     end,
     keys = {
       { '<leader>dt', "<cmd>lua require('dapui').toggle()<cr>", desc = '[D]apui [t]oggle' },
-      { '<leader>do', "<cmd>lua require('dapui').open()<cr>",   desc = '[D]apui [o]pne' },
-      { '<leader>dc', "<cmd>lua require('dapui').close()<cr>",  desc = '[D]apui [c]lose' },
+      { '<leader>do', "<cmd>lua require('dapui').open()<cr>", desc = '[D]apui [o]pne' },
+      { '<leader>dc', "<cmd>lua require('dapui').close()<cr>", desc = '[D]apui [c]lose' },
     },
   },
   { 'github/copilot.vim' },
@@ -135,12 +135,40 @@ return {
     'RaafatTurki/hex.nvim',
     lazy = false,
     keys = {
-      { '<leader>hx', '<cmd>HexDump<cr>',     desc = 'Switches to hex view' },
+      { '<leader>hx', '<cmd>HexDump<cr>', desc = 'Switches to hex view' },
       { '<leader>ha', '<cmd>HexAssemble<cr>', desc = 'Go back to normal view' },
-      { '<leader>ht', '<cmd>HexToggle<cr>',   desc = 'Toggles hex view' },
+      { '<leader>ht', '<cmd>HexToggle<cr>', desc = 'Toggles hex view' },
     },
     config = function()
       require('hex').setup()
     end,
-  }
+  },
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+    config = function()
+      vim.o.foldcolumn = '1' -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
+      local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
+      for _, ls in ipairs(language_servers) do
+        require('lspconfig')[ls].setup {
+          capabilities = capabilities,
+          -- you can add other fields for setting up lsp server in this table
+        }
+      end
+      require('ufo').setup()
+      --{
+      --   provider_selector = function(_, _, _)
+      --     return { 'treesitter', 'indent' }
+      --   end,
+      -- }
+    end,
+  },
 }
