@@ -138,4 +138,10 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end,
 })
 
+vim.api.nvim_set_hl(0, '@lsp.type.comment.doxygen', { link = 'Comment' })
+vim.api.nvim_set_hl(0, '@keyword.doxygen', { link = 'Special' }) -- @param, @return …
+vim.api.nvim_set_hl(0, '@type.doxygen', { link = 'Type' }) -- type names in params
+vim.api.nvim_set_hl(0, '@variable.parameter.doxygen', { link = 'Identifier' })
+vim.api.nvim_set_hl(0, '@text.uri.doxygen', { link = 'Underlined' }) -- URLs in comments
+
 return {}

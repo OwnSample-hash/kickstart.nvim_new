@@ -171,4 +171,8 @@ return {
       -- }
     end,
   },
+  {
+    'nvim-treesitter/playground',
+  },
 }
+-- Vim: set expandtab tabstop=2 shiftwidth=2:
