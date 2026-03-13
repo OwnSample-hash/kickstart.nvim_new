@@ -118,6 +118,8 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
+vim.g.enable_format = true
+
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -776,6 +778,9 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
+        if vim.g.enable_format == false then
+          return nil
+        end
         local disable_filetypes = {}
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
@@ -855,7 +860,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'enter',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -964,7 +969,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'doxygen' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -975,6 +980,9 @@ require('lazy').setup({
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
+    },
+    injections = {
+      enable = true,
     },
     incremental_selection = {
       enable = true,
@@ -991,6 +999,24 @@ require('lazy').setup({
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    playground = {
+      enable = true,
+      disable = {},
+      updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+      persist_queries = false, -- Whether the query persists across vim sessions
+      keybindings = {
+        toggle_query_editor = 'o',
+        toggle_hl_groups = 'i',
+        toggle_injected_languages = 't',
+        toggle_anonymous_nodes = 'a',
+        toggle_language_display = 'I',
+        focus_language = 'f',
+        unfocus_language = 'F',
+        update = 'R',
+        goto_node = '<cr>',
+        show_help = '?',
+      },
+    },
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
